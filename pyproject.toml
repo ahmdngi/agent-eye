@@ -1,11 +1,11 @@
 [project]
 name = "agent-eye"
 version = "1.0.0"
-description = "Share browser page data with Hermes AI — Chrome extension + API server"
+description = "Share browser page data with your AI agent — Chrome extension + API server"
 readme = "README.md"
 license = { text = "MIT" }
 authors = [
-    { name = "Hermes AI Contributors" },
+    { name = "Agent Eye Contributors" },
 ]
 
 requires-python = ">=3.10"

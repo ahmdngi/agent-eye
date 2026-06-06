@@ -2,8 +2,8 @@
   "manifest_version": 3,
   "name": "Agent Eye",
   "version": "1.0.0",
-  "description": "Share web pages with Hermes AI — one-click page data extraction with API-key authentication.",
-  "author": "Hermes AI Contributors",
+  "description": "One-click page data extraction with API-key authentication — share pages with your AI agent.",
+  "author": "Agent Eye Contributors",
   "homepage_url": "https://github.com/ahmdngi/agent-eye",
   "permissions": [
     "activeTab",
