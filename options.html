@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hermes Page Viz — Options</title>
+  <style>
+    :root {
+      --bg: #0f172a;
+      --surface: #1e293b;
+      --border: #334155;
+      --text: #e2e8f0;
+      --text-muted: #94a3b8;
+      --accent: #6366f1;
+      --accent-hover: #818cf8;
+      --green: #22c55e;
+      --red: #ef4444;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      padding: 40px;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+    h1 { font-size: 20px; margin-bottom: 6px; display: flex; align-items: center; gap: 10px; }
+    .subtitle { color: var(--text-muted); font-size: 13px; margin-bottom: 28px; }
+    .group { margin-bottom: 20px; }
+    label { display: block; font-size: 12px; font-weight: 600; text-transform: uppercase;
+            letter-spacing: 0.05em; color: var(--text-muted); margin-bottom: 6px; }
+    input {
+      width: 100%;
+      padding: 10px 14px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      color: var(--text);
+      font-size: 14px;
+      font-family: 'SF Mono', 'Fira Code', monospace;
+    }
+    input:focus { outline: none; border-color: var(--accent); }
+    input::placeholder { color: var(--text-muted); font-size: 13px; }
+    .hint { font-size: 11px; color: var(--text-muted); margin-top: 4px; }
+    .status-row { display: flex; align-items: center; gap: 8px; margin-top: 8px; }
+    .dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+    .dot.ok { background: var(--green); }
+    .dot.err { background: var(--red); }
+    .dot.unknown { background: var(--text-muted); }
+    .status-text { font-size: 13px; }
+    .actions { display: flex; gap: 8px; margin-top: 24px; }
+    .btn {
+      padding: 10px 20px;
+      border: none;
+      border-radius: 8px;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+    .btn-primary { background: var(--accent); color: #fff; }
+    .btn-primary:hover { background: var(--accent-hover); }
+    .btn-secondary { background: var(--border); color: var(--text); }
+    .btn-secondary:hover { background: #475569; }
+    .btn:disabled { opacity: 0.5; cursor: not-allowed; }
+    .toast {
+      margin-top: 16px;
+      padding: 10px 14px;
+      border-radius: 8px;
+      font-size: 13px;
+      display: none;
+    }
+    .toast.show { display: block; }
+    .toast.ok { background: #166534; color: #bbf7d0; }
+    .toast.err { background: #7f1d1d; color: #fecaca; }
+    .key-row { display: flex; gap: 8px; }
+    .key-row input { flex: 1; }
+    .key-row .btn { flex-shrink: 0; }
+    hr { border: none; border-top: 1px solid var(--border); margin: 24px 0; }
+  </style>
+</head>
+<body>
+  <h1>🔧 Hermes Page Viz</h1>
+  <p class="subtitle">Configure the server endpoint your extension sends page data to.</p>
+
+  <div class="group">
+    <label for="serverUrl">Server URL</label>
+    <input type="url" id="serverUrl" placeholder="http://100.72.133.89:8788" spellcheck="false" autocomplete="off">
+    <div class="hint">Your Hermes server running on Tailscale. Port 8788 unless you changed it.</div>
+  </div>
+
+  <div class="group">
+    <label for="apiKey">API Key</label>
+    <div class="key-row">
+      <input type="password" id="apiKey" placeholder="pv_..." spellcheck="false" autocomplete="off">
+      <button class="btn btn-secondary" id="toggleKey">👁</button>
+    </div>
+    <div class="hint">Found in the server startup output, or <code>cat ~/.hermes/page-viz/.api_key</code></div>
+  </div>
+
+  <div class="group">
+    <label>Connection</label>
+    <div class="status-row">
+      <span class="dot unknown" id="statusDot"></span>
+      <span class="status-text" id="statusText">Not tested</span>
+    </div>
+  </div>
+
+  <div class="actions">
+    <button class="btn btn-primary" id="saveBtn">💾 Save & Test</button>
+    <button class="btn btn-secondary" id="testBtn">🔍 Test Connection</button>
+  </div>
+
+  <div class="toast" id="toast"></div>
+
+  <hr>
+
+  <div class="group">
+    <label>Need a server?</label>
+    <div class="hint" style="margin-bottom:8px">Run this on your Hermes machine (binds to Tailscale IP):</div>
+    <div style="background:var(--surface);padding:12px;border-radius:8px;font-family:'SF Mono',monospace;font-size:12px;line-height:1.6">
+      cd ~/workspace/hermes-page-viz<br>
+      .venv/bin/python -m server.main
+    </div>
+    <div class="hint" style="margin-top:8px">Or via Docker: see the project README.</div>
+  </div>
+
+  <script src="options.js"></script>
+</body>
+</html>

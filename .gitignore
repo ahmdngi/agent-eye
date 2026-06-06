@@ -1,0 +1,25 @@
+# Python
+__pycache__/
+*.py[cod]
+.env
+.venv/
+venv/
+*.egg-info/
+dist/
+build/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Chrome extension packaging
+*.zip
+
+# Server runtime (user-specific — not shared)
+.hermes/

@@ -1,0 +1,40 @@
+{
+  "manifest_version": 3,
+  "name": "Hermes Page Viz",
+  "version": "1.0.0",
+  "description": "Share web pages with Hermes AI — one-click page data extraction with API-key authentication.",
+  "author": "Hermes AI Contributors",
+  "homepage_url": "https://github.com/ahmdngi/agent-eye",
+  "permissions": [
+    "activeTab",
+    "storage",
+    "scripting"
+  ],
+  "host_permissions": [
+    "http://*/*",
+    "https://*/*"
+  ],
+  "options_ui": {
+    "page": "options.html",
+    "open_in_tab": true
+  },
+  "action": {
+    "default_popup": "popup.html",
+    "default_title": "Hermes Page Viz",
+    "default_icon": {
+      "16": "icons/icon16.png",
+      "48": "icons/icon48.png",
+      "128": "icons/icon128.png"
+    }
+  },
+  "icons": {
+    "16": "icons/icon16.png",
+    "48": "icons/icon48.png",
+    "128": "icons/icon128.png"
+  },
+  "background": {
+    "service_worker": "background.js",
+    "type": "module"
+  },
+  "minimum_chrome_version": "116"
+}
