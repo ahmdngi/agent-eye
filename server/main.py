@@ -6,7 +6,7 @@ stores it with timestamps, and serves it back with API key authentication.
 
 Run:
     python -m server.main          # dev
-    hermes page-viz-server         # if installed via pip
+    hermes agent-eye-server         # if installed via pip
 """
 from __future__ import annotations
 
@@ -27,7 +27,7 @@ from pydantic import BaseModel, Field
 TAILSCALE_IP = os.environ.get("TAILSCALE_IP", "100.72.133.89")
 
 # ── paths ──────────────────────────────────────────────────────────────
-DATA_DIR = Path.home() / ".hermes" / "page-viz"
+DATA_DIR = Path.home() / ".hermes" / "agent-eye"
 KEY_FILE = DATA_DIR / ".api_key"
 LATEST_SYMLINK = DATA_DIR / "latest.json"
 
@@ -96,7 +96,7 @@ app.add_middleware(
 def _ensure_data_dir() -> None:
     DATA_DIR.mkdir(parents=True, exist_ok=True)
     # ensure .gitignore so creds don't leak
-    gitignore = DATA_DIR / ".gitignore"
+    # gitignore inherited
     if not gitignore.exists():
         gitignore.write_text("*\n")
 

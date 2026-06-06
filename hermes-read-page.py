@@ -6,7 +6,7 @@ Reads from the server API by default, or from the local data directory.
 
 Usage:
     python3 hermes-read-page.py
-    python3 hermes-read-page.py --path ~/.hermes/page-viz/latest.json
+    python3 hermes-read-page.py --path ~/.hermes/agent-eye/latest.json
     python3 hermes-read-page.py --server http://127.0.0.1:8788 --key <api-key>
 """
 import json
@@ -14,7 +14,7 @@ import os
 import sys
 from pathlib import Path
 
-DATA_DIR = Path.home() / ".hermes" / "page-viz"
+DATA_DIR = Path.home() / ".hermes" / "agent-eye"
 KEY_FILE = DATA_DIR / ".api_key"
 LATEST = DATA_DIR / "latest.json"
 
@@ -75,7 +75,7 @@ if __name__ == "__main__":
     elif args.server:
         key = args.key or (KEY_FILE.read_text().strip() if KEY_FILE.exists() else "")
         if not key:
-            print(json.dumps({"found": False, "error": "No API key provided. Pass --key or configure ~/.hermes/page-viz/.api_key"}))
+            print(json.dumps({"found": False, "error": "No API key provided. Pass --key or configure ~/.hermes/agent-eye/.api_key"}))
             sys.exit(1)
         raw = read_from_server(args.server, key)
     else:

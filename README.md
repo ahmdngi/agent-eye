@@ -17,7 +17,7 @@ Chrome extension + authenticated API server for secure, production-ready page sh
                                                          │
                                                    ┌─────▼──────────┐
                                                    │  ~/.hermes/    │
-                                                   │  page-viz/     │
+                                                   │  agent-eye/  │
                                                    │  20250325_*.json│
                                                    │  latest.json → │
                                                    └────────────────┘
@@ -46,12 +46,11 @@ pip install -e .
 hermes-pviz
 ```
 
-First run creates an API key in `~/.hermes/page-viz/.api_key`.  
-Server runs on `http://127.0.0.1:8788` by default.
+First run creates an API key in `~/.hermes/agent-eye/.api_key`.
 
 ```
   ┌─ Agent Eye Server ─────────────────────────────────┐
-  │  Data dir : /home/user/.hermes/page-viz            │
+  │  Data dir : /home/user/.hermes/agent-eye           │
   │  API Key  : pv_MfTzJ...A3X8fMC                     │
   └────────────────────────────────────────────────────┘
 ```
@@ -67,7 +66,7 @@ Server runs on `http://127.0.0.1:8788` by default.
 
 1. Click the extension icon → right-click → **Options**
 2. Enter: `http://127.0.0.1:8788` as Server URL
-3. Enter your API key (from the server output or `cat ~/.hermes/page-viz/.api_key`)
+3. Enter your API key (from the server output or `cat ~/.hermes/agent-eye/.api_key`)
 4. Click **Save & Test**
 
 ### 5. Share a page
@@ -92,7 +91,7 @@ PAGE_VIZ_PORT=8788 hermes-pviz
 # Or via Docker with Tailscale
 docker run -d \
   -p 100.72.133.89:8788:8788 \
-  -v ~/.hermes/page-viz:/root/.hermes/page-viz \
+  -v ~/.hermes/agent-eye:/root/.hermes/agent-eye \
   ghcr.io/ahmdngi/agent-eye
 ```
 
@@ -100,7 +99,7 @@ docker run -d \
 
 ```bash
 curl -X POST http://127.0.0.1:8788/api/v1/auth/rotate \
-  -H "X-Api-Key: $(cat ~/.hermes/page-viz/.api_key)"
+  -H "X-Api-Key: $(cat ~/.hermes/agent-eye/.api_key)"
 ```
 
 ## API Reference
@@ -142,7 +141,7 @@ All endpoints except `/health` require `X-Api-Key` header.
 
 ## Storage
 
-All data lives in `~/.hermes/page-viz/`:
+All data lives in `~/.hermes/agent-eye/`:
 
 - `{timestamp}.json` — individual page shares
 - `latest.json` — symlink to the most recent share

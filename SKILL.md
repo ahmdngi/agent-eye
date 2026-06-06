@@ -17,7 +17,7 @@ Chrome extension + FastAPI server for sharing pages with Hermes.
 
 ## Architecture
 
-Extension → POST /api/v1/pages (X-Api-Key auth) → FastAPI server → ~/.hermes/page-viz/*.json
+Extension → POST /api/v1/pages (X-Api-Key auth) → FastAPI server → ~/.hermes/agent-eye/*.json
 
 ## Quick Start
 
@@ -26,7 +26,7 @@ Extension → POST /api/v1/pages (X-Api-Key auth) → FastAPI server → ~/.herm
 cd /root/workspace/agent-eye && .venv/bin/python -m server.main
 
 # 2. Get the API key
-cat ~/.hermes/page-viz/.api_key
+cat ~/.hermes/agent-eye/.api_key
 
 # 3. Read a shared page
 python3 /root/workspace/agent-eye/hermes-read-page.py
@@ -95,7 +95,7 @@ To publish the extension for non-technical users: package as `.zip`, prepare lis
 
 ## Security
 
-- API key auto-generated (64 bytes, stored `0o600` in `~/.hermes/page-viz/.api_key`)
+- API key auto-generated (64 bytes, stored `0o600` in `~/.hermes/agent-eye/.api_key`)
 - Extension stores creds in `chrome.storage.sync` (Chrome-encrypted)
 - Server binds to Tailscale IP only — no localhost or public exposure
 
