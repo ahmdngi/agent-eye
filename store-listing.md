@@ -3,19 +3,19 @@
 ## Basic Info
 
 - **Name:** Agent Eye
-- **Description (short, 132 chars):** Share web pages with your Hermes AI — one-click page data extraction with secure API key authentication.
+- **Description (short, 132 chars):** Share web pages with your AI agent — one-click page data extraction with secure API key authentication.
 - **Description (full):**
 
-  > **Share any web page you're browsing with Hermes AI in one click.**
+  > **Share any web page you're browsing with your AI agent in one click.**
   >
-  > Agent Eye is a developer tool that extracts page metadata, Open Graph tags, headings, and content from any web page and shares it with your Hermes AI agent via a secure, authenticated API server.
+  > Agent Eye is a developer tool that extracts page metadata, Open Graph tags, headings, and content from any web page and shares it with your AI agent via a secure, authenticated API server.
   >
   > **How it works:**
   >
-  > 1. Install the companion server on your Hermes machine
+  > 1. Install the companion server on your machine
   > 2. Configure the extension with your server URL + API key
   > 3. Click the extension on any page to see title, URL, meta tags, headings, and stats
-  > 4. Click "Share with Hermes" to send the page data to your Hermes server
+  > 4. Click "Share" to send the page data to your agent's server
   >
   > **What's extracted from each page:**
   > - Page title and URL
@@ -29,7 +29,7 @@
   > - Configurable server endpoint — data goes only where you choose
   > - Credentials stored in Chrome's encrypted sync storage
   >
-  > **Requires:** A running Agent Eye server (FastAPI) on your Hermes machine. See the GitHub repo for setup.
+  > **Requires:** A running Agent Eye server (FastAPI) on your machine. See the GitHub repo for setup.
 
 - **Category:** Developer Tools
 - **Language:** English
@@ -40,7 +40,7 @@
 ### Screenshot 1: Popup showing page analysis
 - Open the extension on any website (e.g., a tech blog or docs page)
 - Capture the popup showing: page title, URL, meta description, Open Graph tags, headings list, and stats
-- Shows the "Share with Hermes" and "Copy URL" buttons
+- Shows the "Share" and "Copy URL" buttons
 
 ### Screenshot 2: Options page configuration
 - Show the options page with the server URL field and API key field
