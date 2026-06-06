@@ -1,4 +1,4 @@
-// Hermes Page Viz — Options Page
+// Agent Eye — Options Page
 
 const serverUrlInput = document.getElementById('serverUrl');
 const apiKeyInput = document.getElementById('apiKey');

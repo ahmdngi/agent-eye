@@ -10,7 +10,7 @@ Chrome extension + authenticated API server for secure, production-ready page sh
 
 ```
 ┌─────────────────┐     POST /api/v1/pages     ┌──────────────────┐
-│  Chrome         │  ──────────────────────────→ │  Hermes Page Viz │
+│  Chrome         │  ──────────────────────────→ │  Agent Eye       │
 │  Extension      │     X-Api-Key: pv_...       │  FastAPI Server   │
 │  (popup + opts) │  ←────────────────────────── │  (port 8788)     │
 └─────────────────┘     { ok, id }              └───────┬──────────┘
@@ -50,7 +50,7 @@ First run creates an API key in `~/.hermes/page-viz/.api_key`.
 Server runs on `http://127.0.0.1:8788` by default.
 
 ```
-  ┌─ Hermes Page Viz Server ──────────────────────────┐
+  ┌─ Agent Eye Server ─────────────────────────────────┐
   │  Data dir : /home/user/.hermes/page-viz            │
   │  API Key  : pv_MfTzJ...A3X8fMC                     │
   └────────────────────────────────────────────────────┘

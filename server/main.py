@@ -1,5 +1,5 @@
 """
-Hermes Page Viz — API Server
+Agent Eye — API Server
 
 FastAPI server that receives shared page data from the Chrome extension,
 stores it with timestamps, and serves it back with API key authentication.
@@ -78,9 +78,9 @@ class HealthResponse(BaseModel):
 
 # ── app ────────────────────────────────────────────────────────────────
 app = FastAPI(
-    title="Hermes Page Viz API",
+    title="Agent Eye API",
     version="1.0.0",
-    description="Receive and serve shared page data from the Hermes Page Viz Chrome extension.",
+    description="Receive and serve shared page data from the Agent Eye Chrome extension.",
 )
 
 app.add_middleware(
@@ -139,7 +139,7 @@ def verify_api_key(x_api_key: str = Header(..., alias="X-Api-Key")):
 async def startup():
     _ensure_data_dir()
     key = _load_api_key()
-    print(f"  ┌─ Hermes Page Viz Server ──────────────────────────┐")
+    print(f"  ┌─ Agent Eye Server ─────────────────────────────────┐")
     print(f"  │  Listening: http://{TAILSCALE_IP}:{port}")
     print(f"  │  API Key  : {key[:16]}...{key[-8:]}                        │")
     print(f"  └──────────────────────────────────────────────────┘")

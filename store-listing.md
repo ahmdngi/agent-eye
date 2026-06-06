@@ -1,14 +1,14 @@
-# Hermes Page Viz — Chrome Web Store Submission
+# Agent Eye — Chrome Web Store Submission
 
 ## Basic Info
 
-- **Name:** Hermes Page Viz
+- **Name:** Agent Eye
 - **Description (short, 132 chars):** Share web pages with your Hermes AI — one-click page data extraction with secure API key authentication.
 - **Description (full):**
 
   > **Share any web page you're browsing with Hermes AI in one click.**
   >
-  > Hermes Page Viz is a developer tool that extracts page metadata, Open Graph tags, headings, and content from any web page and shares it with your Hermes AI agent via a secure, authenticated API server.
+  > Agent Eye is a developer tool that extracts page metadata, Open Graph tags, headings, and content from any web page and shares it with your Hermes AI agent via a secure, authenticated API server.
   >
   > **How it works:**
   >
@@ -29,7 +29,7 @@
   > - Configurable server endpoint — data goes only where you choose
   > - Credentials stored in Chrome's encrypted sync storage
   >
-  > **Requires:** A running Hermes Page Viz server (FastAPI) on your Hermes machine. See the GitHub repo for setup.
+  > **Requires:** A running Agent Eye server (FastAPI) on your Hermes machine. See the GitHub repo for setup.
 
 - **Category:** Developer Tools
 - **Language:** English

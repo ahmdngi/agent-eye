@@ -11,7 +11,7 @@ install_url: https://raw.githubusercontent.com/ahmdngi/agent-eye/main/SKILL.md
 type: integration
 ---
 
-# Hermes Page Viz
+# Agent Eye
 
 Chrome extension + FastAPI server for sharing pages with Hermes.
 

@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Read the latest page shared via Hermes Page Viz Chrome extension.
+Read the latest page shared via the Agent Eye Chrome extension.
 
 Reads from the server API by default, or from the local data directory.
 

@@ -1,6 +1,6 @@
 {
   "manifest_version": 3,
-  "name": "Hermes Page Viz",
+  "name": "Agent Eye",
   "version": "1.0.0",
   "description": "Share web pages with Hermes AI — one-click page data extraction with API-key authentication.",
   "author": "Hermes AI Contributors",
@@ -20,7 +20,7 @@
   },
   "action": {
     "default_popup": "popup.html",
-    "default_title": "Hermes Page Viz",
+    "default_title": "Agent Eye",
     "default_icon": {
       "16": "icons/icon16.png",
       "48": "icons/icon48.png",

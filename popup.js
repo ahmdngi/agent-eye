@@ -1,4 +1,4 @@
-// Hermes Page Viz — Popup
+// Agent Eye — Popup
 
 const $ = (sel) => document.querySelector(sel);
 const statusDot = $('#statusDot');
