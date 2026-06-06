@@ -227,7 +227,7 @@ shareBtn.addEventListener('click', async () => {
     setTimeout(() => {
       shareBtn.disabled = false;
       if (shareBtn.textContent === '⏳ Sending...' || shareBtn.textContent.startsWith('Retry')) {
-        shareBtn.textContent = '📤 Share with Hermes';
+        shareBtn.textContent = '📤 Share';
         shareBtn.onclick = null; // reset
       }
     }, 1500);

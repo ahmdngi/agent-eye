@@ -8,8 +8,18 @@
   "permissions": [
     "activeTab",
     "storage",
-    "scripting"
+    "scripting",
+    "contextMenus"
   ],
+  "commands": {
+    "share-page": {
+      "suggested_key": {
+        "default": "Ctrl+Shift+S",
+        "mac": "Command+Shift+S"
+      },
+      "description": "Share current page with agent"
+    }
+  },
   "host_permissions": [
     "http://*/*",
     "https://*/*"
