@@ -84,6 +84,6 @@ if __name__ == "__main__":
         elif KEY_FILE.exists():
             raw = read_from_server(f"http://{TAILSCALE_IP}:8788", KEY_FILE.read_text().strip())
         else:
-            raw = {"found": False, "error": "No shared page found. Click 'Share with Hermes' in the extension first."}
+            raw = {"found": False, "error": "No shared page found. Click 'Share' in the extension first."}
 
     print(json.dumps(format_output(raw), indent=2))

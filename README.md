@@ -25,7 +25,7 @@ Chrome extension + authenticated API server for secure, production-ready page sh
 
 - **Extension** extracts page title, URL, meta tags, Open Graph, headings, word count, and a content excerpt.
 - **Server** authenticates via API key, stores all shares with timestamps, and serves pages back via REST.
-- **Hermes** reads the latest page via the server API or directly from the data directory.
+- **Your agent** reads the latest page via the server API or directly from the data directory.
 
 ## Quick Start
 
@@ -71,7 +71,7 @@ First run creates an API key in `~/.hermes/agent-eye/.api_key`.
 
 ### 5. Share a page
 
-Click the extension on any page → hit **Share with Hermes**.
+Click the extension on any page → hit **Share**.
 
 ## Server Configuration
 

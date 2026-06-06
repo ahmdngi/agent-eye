@@ -1,10 +1,10 @@
 ---
 name: agent-eye
-description: Chrome extension + authenticated FastAPI server that shares the current browsing page with Hermes (URL, title, meta, headings, content).
+description: Chrome extension + authenticated FastAPI server that shares the current browsing page with your AI agent (URL, title, meta, headings, content).
 usage: |
   1. Start the server: python3 -m server.main  (from cloned repo)
   2. User configures extension options with server URL + API key
-  3. User clicks "Share with Hermes" in the extension
+  3. User clicks "Share" in the extension
   4. Read the shared data: python3 hermes-read-page.py
 repo_url: https://github.com/ahmdngi/agent-eye
 install_url: https://raw.githubusercontent.com/ahmdngi/agent-eye/main/SKILL.md
@@ -13,7 +13,7 @@ type: integration
 
 # Agent Eye
 
-Chrome extension + FastAPI server for sharing pages with Hermes.
+Chrome extension + FastAPI server for sharing pages with your AI agent.
 
 ## Architecture
 

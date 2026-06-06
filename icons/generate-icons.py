@@ -1,4 +1,4 @@
-"""Generate simple Hermes-themed icons for the Chrome extension."""
+"""Generate simple vision-themed icons for the Chrome extension."""
 from PIL import Image, ImageDraw, ImageFont
 import os
 
@@ -9,7 +9,7 @@ def make_icon(size, outpath):
     padding = max(1, size // 10)
     draw.ellipse([padding, padding, size - padding - 1, size - padding - 1],
                  fill=(79, 70, 229, 255))  # Indigo-600
-    # Simple eye pupil (Hermes "vision" motif)
+    # Simple eye pupil (vision motif)
     cx, cy = size // 2, size // 2
     r = size // 5
     draw.ellipse([cx - r, cy - r, cx + r, cy + r],
