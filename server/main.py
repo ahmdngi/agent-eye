@@ -25,6 +25,7 @@ from pydantic import BaseModel, Field
 
 # ── Tailscale IP (never bind to localhost) ────────────────────────────
 TAILSCALE_IP = os.environ.get("TAILSCALE_IP", "100.72.133.89")
+AGENT_EYE_PORT = int(os.environ.get("AGENT_EYE_PORT", "8788"))
 
 # ── paths ──────────────────────────────────────────────────────────────
 DATA_DIR = Path.home() / ".hermes" / "agent-eye"
@@ -96,7 +97,7 @@ app.add_middleware(
 def _ensure_data_dir() -> None:
     DATA_DIR.mkdir(parents=True, exist_ok=True)
     # ensure .gitignore so creds don't leak
-    # gitignore inherited
+    gitignore = DATA_DIR / ".gitignore"
     if not gitignore.exists():
         gitignore.write_text("*\n")
 
@@ -140,7 +141,7 @@ async def startup():
     _ensure_data_dir()
     key = _load_api_key()
     print(f"  ┌─ Agent Eye Server ─────────────────────────────────┐")
-    print(f"  │  Listening: http://{TAILSCALE_IP}:{port}")
+    print(f"  │  Listening: http://{TAILSCALE_IP}:{AGENT_EYE_PORT}")
     print(f"  │  API Key  : {key[:16]}...{key[-8:]}                        │")
     print(f"  └──────────────────────────────────────────────────┘")
 
@@ -215,9 +216,8 @@ async def rotate_key(_api_key: str = Depends(verify_api_key)):
 
 # ── CLI entrypoint ─────────────────────────────────────────────────────
 def main():
-    port = int(os.environ.get("AGENT_EYE_PORT", "8788"))
     host = os.environ.get("AGENT_EYE_HOST", TAILSCALE_IP)
-    uvicorn.run(app, host=host, port=port, log_level="info")
+    uvicorn.run(app, host=host, port=AGENT_EYE_PORT, log_level="info")
 
 
 if __name__ == "__main__":
