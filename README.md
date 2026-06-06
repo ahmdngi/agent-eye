@@ -160,6 +160,14 @@ All data lives in `~/.hermes/agent-eye/`:
 - All data is local by default; bound to your Tailscale IP with no exposure to the open internet
 - If your Tailscale IP changes, set `TAILSCALE_IP` env var or `AGENT_EYE_HOST`
 
+## Auto-Capture to Notes
+
+Every 5 minutes, a cron job checks the Agent Eye server for new shared pages and saves them to `~/hermes-vault/user-notes/agent-eye-captures.md` with the URL, title, stats, and a content preview.
+
+Duplicate pages are skipped (checked by both page ID and URL). Already-seen IDs/URLs tracked in `~/.hermes/agent-eye/seen_ids.json`.
+
+Script: `capture-to-notes.py`
+
 ## Files
 
 ```
@@ -173,6 +181,7 @@ agent-eye/
 │   ├── __init__.py        # Package init
 │   └── main.py            # FastAPI server
 ├── hermes-read-page.py    # Read latest shared page from terminal
+├── capture-to-notes.py    # Cron script — auto-saves shared pages to notes
 ├── SKILL.md               # Hermes skill for agent integration
 ├── store-listing.md       # Chrome Web Store listing guide
 ├── requirements.txt       # Python dependencies
