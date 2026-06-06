@@ -50,7 +50,7 @@ First run creates an API key in `~/.hermes/agent-eye/.api_key`.
 
 ```
   ┌─ Agent Eye Server ─────────────────────────────────┐
-  │  Data dir : /home/user/.hermes/agent-eye           │
+  │  Listening: http://100.72.133.89:8788              │
   │  API Key  : pv_MfTzJ...A3X8fMC                     │
   └────────────────────────────────────────────────────┘
 ```
@@ -65,7 +65,7 @@ First run creates an API key in `~/.hermes/agent-eye/.api_key`.
 ### 4. Configure the extension
 
 1. Click the extension icon → right-click → **Options**
-2. Enter: `http://127.0.0.1:8788` as Server URL
+2. Enter: `http://100.72.133.89:8788` as Server URL
 3. Enter your API key (from the server output or `cat ~/.hermes/agent-eye/.api_key`)
 4. Click **Save & Test**
 
@@ -80,25 +80,28 @@ Click the extension on any page → hit **Share**.
 | `AGENT_EYE_PORT` | `8788` | Server port |
 | `AGENT_EYE_HOST` | `100.72.133.89` | Tailscale IP to bind to |
 
-The server **always binds to the Tailscale IP** (`100.72.133.89`) by default — never to localhost. This keeps page sharing accessible over your Tailnet without exposing anything to the open internet. You can override via `TAILSCALE_IP` env var or `AGENT_EYE_HOST` if your IP changes.
+The server **always binds to the Tailscale IP** (`100.72.133.89`) by default — never to localhost. This keeps page sharing accessible over your Tailnet without exposing anything to the open internet. Override with `AGENT_EYE_HOST` env var if your IP changes.
 
-### Production
+### Run with Docker
 
 ```bash
-# Use the Tailscale IP (default) — no extra config needed
-AGENT_EYE_PORT=8788 agent-eye
+# Build the image
+docker build -t agent-eye .
 
-# Or via Docker with Tailscale
+# Run it (bound to Tailscale IP)
 docker run -d \
+  --name agent-eye \
+  --restart unless-stopped \
+  -e AGENT_EYE_HOST=0.0.0.0 \
   -p 100.72.133.89:8788:8788 \
   -v ~/.hermes/agent-eye:/root/.hermes/agent-eye \
-  ghcr.io/ahmdngi/agent-eye
+  agent-eye
 ```
 
 ### Rotate API key
 
 ```bash
-curl -X POST http://127.0.0.1:8788/api/v1/auth/rotate \
+curl -X POST http://100.72.133.89:8788/api/v1/auth/rotate \
   -H "X-Api-Key: $(cat ~/.hermes/agent-eye/.api_key)"
 ```
 
@@ -164,11 +167,14 @@ agent-eye/
 ├── manifest.json          # Chrome extension manifest (v3)
 ├── popup.html / popup.js  # Extension popup UI + logic
 ├── options.html / options.js  # Configuration page
-├── background.js          # Service worker
+├── background.js          # Service worker (context menu, keyboard shortcut)
 ├── icons/                 # Extension icons (16/48/128)
 ├── server/
 │   ├── __init__.py        # Package init
 │   └── main.py            # FastAPI server
+├── hermes-read-page.py    # Read latest shared page from terminal
+├── SKILL.md               # Hermes skill for agent integration
+├── store-listing.md       # Chrome Web Store listing guide
 ├── requirements.txt       # Python dependencies
 ├── pyproject.toml         # Python package metadata
 ├── Dockerfile             # Container build
