@@ -16,7 +16,7 @@ dependencies = [
 ]
 
 [project.scripts]
-hermes-pviz = "server.main:main"
+agent-eye = "server.main:main"
 
 [build-system]
 requires = ["setuptools>=68.0"]

@@ -43,7 +43,7 @@ pip install -e .
 ### 2. Start the server
 
 ```bash
-hermes-pviz
+agent-eye
 ```
 
 First run creates an API key in `~/.hermes/agent-eye/.api_key`.
@@ -86,7 +86,7 @@ The server **always binds to the Tailscale IP** (`100.72.133.89`) by default —
 
 ```bash
 # Use the Tailscale IP (default) — no extra config needed
-PAGE_VIZ_PORT=8788 hermes-pviz
+PAGE_VIZ_PORT=8788 agent-eye
 
 # Or via Docker with Tailscale
 docker run -d \
