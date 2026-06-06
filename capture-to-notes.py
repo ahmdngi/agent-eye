@@ -16,17 +16,22 @@ STATE_FILE = Path.home() / ".hermes" / "agent-eye" / "seen_ids.json"
 NOTES_FILE = Path.home() / "hermes-vault" / "user-notes" / "agent-eye-captures.md"
 
 
-def load_seen() -> set:
+def load_seen() -> dict:
+    """Load seen state: returns {id: ..., urls: set(...)}"""
     if STATE_FILE.exists():
         with open(STATE_FILE) as f:
-            return set(json.load(f))
-    return set()
+            data = json.load(f)
+            if isinstance(data, dict) and "ids" in data:
+                return data
+            # migrate old flat list format
+            return {"ids": data if isinstance(data, list) else [], "urls": []}
+    return {"ids": [], "urls": []}
 
 
-def save_seen(ids: set) -> None:
+def save_seen(state: dict) -> None:
     STATE_FILE.parent.mkdir(parents=True, exist_ok=True)
     with open(STATE_FILE, "w") as f:
-        json.dump(sorted(ids), f)
+        json.dump({"ids": sorted(state["ids"]), "urls": sorted(state["urls"])}, f)
 
 
 def fetch_pages(api_key: str) -> list[dict]:
@@ -106,15 +111,20 @@ def main():
         print("No pages on server")
         return
 
-    # Load already-seen IDs
-    seen = load_seen()
+    # Load already-seen state
+    state = load_seen()
+    seen_ids = set(state["ids"])
+    seen_urls = set(state["urls"])
     new_entries = []
 
     for p in pages:
         pid = p.get("id", "")
-        if pid and pid not in seen:
+        purl = p.get("page", {}).get("url", "")
+        if pid and pid not in seen_ids and purl not in seen_urls:
             new_entries.append(p)
-            seen.add(pid)
+            seen_ids.add(pid)
+            if purl:
+                seen_urls.add(purl)
 
     if not new_entries:
         print("No new pages to capture")
@@ -130,8 +140,8 @@ def main():
         for entry in reversed(new_entries):  # oldest first
             f.write(format_entry(entry))
 
-    # Save seen IDs
-    save_seen(seen)
+    # Save seen state
+    save_seen({"ids": list(seen_ids), "urls": list(seen_urls)})
 
     print(f"Saved {len(new_entries)} new page(s) to {NOTES_FILE}")
 
