@@ -1,5 +1,5 @@
 [project]
-name = "hermes-page-viz"
+name = "agent-eye"
 version = "1.0.0"
 description = "Share browser page data with Hermes AI — Chrome extension + API server"
 readme = "README.md"

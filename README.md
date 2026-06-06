@@ -33,10 +33,10 @@ Chrome extension + authenticated API server for secure, production-ready page sh
 
 ```bash
 # Via pip
-pip install hermes-page-viz
+pip install agent-eye
 
 # Or from source
-cd hermes-page-viz
+cd agent-eye
 pip install -e .
 ```
 
@@ -60,7 +60,7 @@ Server runs on `http://127.0.0.1:8788` by default.
 
 1. Open `chrome://extensions`
 2. Enable **Developer mode** (top right toggle)
-3. Click **Load unpacked** → select the `hermes-page-viz/` directory
+3. Click **Load unpacked** → select the `agent-eye/` directory
 4. Pin the extension from the puzzle icon
 
 ### 4. Configure the extension
@@ -161,7 +161,7 @@ All data lives in `~/.hermes/page-viz/`:
 ## Files
 
 ```
-hermes-page-viz/
+agent-eye/
 ├── manifest.json          # Chrome extension manifest (v3)
 ├── popup.html / popup.js  # Extension popup UI + logic
 ├── options.html / options.js  # Configuration page

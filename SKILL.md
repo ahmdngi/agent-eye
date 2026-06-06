@@ -23,20 +23,20 @@ Extension → POST /api/v1/pages (X-Api-Key auth) → FastAPI server → ~/.herm
 
 ```bash
 # 1. Start the server (binds to Tailscale IP 100.72.133.89)
-cd /root/workspace/hermes-page-viz && .venv/bin/python -m server.main
+cd /root/workspace/agent-eye && .venv/bin/python -m server.main
 
 # 2. Get the API key
 cat ~/.hermes/page-viz/.api_key
 
 # 3. Read a shared page
-python3 /root/workspace/hermes-page-viz/hermes-read-page.py
+python3 /root/workspace/agent-eye/hermes-read-page.py
 ```
 
 ## Installation Steps (one-time)
 
 1. Install deps: `.venv/bin/pip install fastapi uvicorn pydantic`
 2. Chrome: `chrome://extensions` → Developer mode → Load unpacked
-3. Select `/root/workspace/hermes-page-viz/`
+3. Select `/root/workspace/agent-eye/`
 4. Right-click extension → Options → enter server URL + API key
 
 ## How to use
@@ -45,7 +45,7 @@ When the user shares a page:
 
 1. **Read the shared data**:
    ```bash
-   python3 /root/workspace/hermes-page-viz/hermes-read-page.py
+   python3 /root/workspace/agent-eye/hermes-read-page.py
    ```
 
 2. Output includes: `url`, `title`, `description`, `meta` (OpenGraph), `headings`, `stats` (words/links/images), `excerpt`
@@ -55,7 +55,7 @@ When the user shares a page:
 ## File structure
 
 ```
-/root/workspace/hermes-page-viz/
+/root/workspace/agent-eye/
 ├── manifest.json       # Chrome extension manifest v3
 ├── popup.html / .js    # Extension popup with page analysis
 ├── options.html / .js  # Server URL + API key config

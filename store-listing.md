@@ -78,7 +78,7 @@ Already included in the extension package:
 1. Go to https://chrome.google.com/webstore/devconsole
 2. Pay the one-time $5 registration fee
 3. Click "New item"
-4. Upload `hermes-page-viz.zip`
+4. Upload `agent-eye.zip`
 5. Fill in the details from above
 6. Upload screenshots
 7. Submit for review
