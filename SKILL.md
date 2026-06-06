@@ -84,10 +84,10 @@ All require `X-Api-Key` header (except /health):
 ## Server CLI
 
 ```bash
-PAGE_VIZ_PORT=8788 .venv/bin/python -m server.main
+AGENT_EYE_PORT=8788 .venv/bin/python -m server.main
 ```
 
-Binds to Tailscale IP `100.72.133.89` by default — never localhost. Override with `PAGE_VIZ_HOST` or `TAILSCALE_IP` env var if your Tailscale IP changes.
+Binds to Tailscale IP `100.72.133.89` by default — never localhost. Override with `AGENT_EYE_HOST` or `TAILSCALE_IP` env var if your Tailscale IP changes.
 
 ## Chrome Web Store
 

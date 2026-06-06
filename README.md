@@ -77,16 +77,16 @@ Click the extension on any page → hit **Share with Hermes**.
 
 | Env Var | Default | Description |
 |---------|---------|-------------|
-| `PAGE_VIZ_PORT` | `8788` | Server port |
-| `PAGE_VIZ_HOST` | `100.72.133.89` | Tailscale IP to bind to |
+| `AGENT_EYE_PORT` | `8788` | Server port |
+| `AGENT_EYE_HOST` | `100.72.133.89` | Tailscale IP to bind to |
 
-The server **always binds to the Tailscale IP** (`100.72.133.89`) by default — never to localhost. This keeps page sharing accessible over your Tailnet without exposing anything to the open internet. You can override via `TAILSCALE_IP` env var or `PAGE_VIZ_HOST` if your IP changes.
+The server **always binds to the Tailscale IP** (`100.72.133.89`) by default — never to localhost. This keeps page sharing accessible over your Tailnet without exposing anything to the open internet. You can override via `TAILSCALE_IP` env var or `AGENT_EYE_HOST` if your IP changes.
 
 ### Production
 
 ```bash
 # Use the Tailscale IP (default) — no extra config needed
-PAGE_VIZ_PORT=8788 agent-eye
+AGENT_EYE_PORT=8788 agent-eye
 
 # Or via Docker with Tailscale
 docker run -d \
@@ -155,7 +155,7 @@ All data lives in `~/.hermes/agent-eye/`:
 - Key never logged or exposed in error messages
 - Extension stores creds in `chrome.storage.sync` (Chrome-encrypted)
 - All data is local by default; bound to your Tailscale IP with no exposure to the open internet
-- If your Tailscale IP changes, set `TAILSCALE_IP` env var or `PAGE_VIZ_HOST`
+- If your Tailscale IP changes, set `TAILSCALE_IP` env var or `AGENT_EYE_HOST`
 
 ## Files
 

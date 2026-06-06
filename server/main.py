@@ -215,8 +215,8 @@ async def rotate_key(_api_key: str = Depends(verify_api_key)):
 
 # ── CLI entrypoint ─────────────────────────────────────────────────────
 def main():
-    port = int(os.environ.get("PAGE_VIZ_PORT", "8788"))
-    host = os.environ.get("PAGE_VIZ_HOST", TAILSCALE_IP)
+    port = int(os.environ.get("AGENT_EYE_PORT", "8788"))
+    host = os.environ.get("AGENT_EYE_HOST", TAILSCALE_IP)
     uvicorn.run(app, host=host, port=port, log_level="info")
 
 
