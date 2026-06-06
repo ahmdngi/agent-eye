@@ -7,7 +7,7 @@ usage: |
   3. User clicks "Share with Hermes" in the extension
   4. Read the shared data: python3 hermes-read-page.py
 repo_url: https://github.com/ahmdngi/agent-eye
-install_url: https://raw.githubusercontent.com/ahmdngi/agent-eye/main/server/SKILL.md
+install_url: https://raw.githubusercontent.com/ahmdngi/agent-eye/main/SKILL.md
 type: integration
 ---
 
