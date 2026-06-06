@@ -1,6 +1,6 @@
-# Hermes Page Viz
+# Agent Eye
 
-**Share any web page you're browsing with Hermes AI in one click.**  
+**Share any web page you're browsing with your AI agent in one click.**  
 Chrome extension + authenticated API server for secure, production-ready page sharing.
 
 🌐 **Repo:** https://github.com/ahmdngi/agent-eye  

@@ -1,5 +1,5 @@
 ---
-name: hermes-page-viz
+name: agent-eye
 description: Chrome extension + authenticated FastAPI server that shares the current browsing page with Hermes (URL, title, meta, headings, content).
 usage: |
   1. Start the server: python3 -m server.main  (from cloned repo)

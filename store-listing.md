@@ -33,7 +33,7 @@
 
 - **Category:** Developer Tools
 - **Language:** English
-- **Homepage URL:** https://github.com/ahmdngi/hermes-clone/tree/main/page-viz
+- **Homepage URL:** https://github.com/ahmdngi/agent-eye
 
 ## Screenshots (1280x800)
 
