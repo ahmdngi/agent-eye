@@ -183,7 +183,7 @@ async def get_latest(_api_key: str = Depends(verify_api_key)):
             with open(path) as f:
                 return json.load(f)
     # fallback: find the most recent .json
-    pages = [p for p in _list_pages() if p.suffix == ".json" and p.name != "latest.json"]
+    pages = [p for p in _list_pages() if p.suffix == ".json" and p.name not in ("latest.json", "seen_ids.json")]
     if not pages:
         raise HTTPException(status_code=404, detail="No pages shared yet")
     path = pages[0]
@@ -197,7 +197,7 @@ async def list_pages(
     limit: int = Query(20, ge=1, le=100),
     offset: int = Query(0, ge=0),
 ):
-    pages = [p for p in _list_pages() if p.suffix == ".json" and p.name != "latest.json"]
+    pages = [p for p in _list_pages() if p.suffix == ".json" and p.name not in ("latest.json", "seen_ids.json")]
     batch = pages[offset : offset + limit]
     result = []
     for p in batch:
