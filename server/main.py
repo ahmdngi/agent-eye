@@ -124,7 +124,11 @@ def _save_page(page_id: str, data: dict) -> Path:
 
 
 def _list_pages() -> list[Path]:
-    return sorted(DATA_DIR.glob("*.json"), key=os.path.getmtime, reverse=True)
+    return sorted(
+        (p for p in DATA_DIR.glob("*.json") if p.is_file()),
+        key=os.path.getmtime,
+        reverse=True,
+    )
 
 
 # ── auth dependency ────────────────────────────────────────────────────
@@ -148,10 +152,10 @@ async def startup():
 
 @app.get("/health", response_model=HealthResponse)
 async def health():
-    pages = [p for p in _list_pages() if p.name != "latest.json"]
+    pages = [p for p in _list_pages() if p.name not in ("latest.json", "seen_ids.json")]
     return HealthResponse(
         status="ok",
-        version="1.0.0",
+        version="1.1.0",
         pages_stored=len(pages),
         data_dir=str(DATA_DIR),
     )
@@ -204,6 +208,80 @@ async def list_pages(
         with open(p) as f:
             result.append(json.load(f))
     return result
+
+
+@app.delete("/api/v1/pages/{page_id}")
+async def delete_page(
+    page_id: str,
+    _api_key: str = Depends(verify_api_key),
+):
+    path = DATA_DIR / f"{page_id}.json"
+    if not path.exists():
+        raise HTTPException(status_code=404, detail="Page not found")
+
+    # — Delete the page file
+    path.unlink()
+
+    # — Clean up latest symlink if it points to this page
+    if LATEST_SYMLINK.exists() and LATEST_SYMLINK.is_symlink():
+        try:
+            target = LATEST_SYMLINK.resolve()
+            if target == path:
+                LATEST_SYMLINK.unlink()
+        except Exception:
+            pass
+
+    # — Remove from seen_ids.json so the cron won't skip it if reshared
+    state_path = DATA_DIR / "seen_ids.json"
+    if state_path.exists():
+        try:
+            with open(state_path) as f:
+                state = json.load(f)
+            if isinstance(state, dict) and "ids" in state:
+                state["ids"] = [i for i in state["ids"] if i != page_id]
+                with open(state_path, "w") as f:
+                    json.dump(state, f, indent=2)
+        except Exception:
+            pass
+
+    # — Remove matching entry from agent-eye-captures.md
+    notes_path = Path.home() / "hermes-vault" / "user-notes" / "agent-eye-captures.md"
+    if notes_path.exists():
+        try:
+            content = notes_path.read_text()
+            lines = content.split("\n")
+            # Find the line with the matching ID
+            id_marker = f"**ID:** `{page_id}`"
+            id_lineno = None
+            for i, line in enumerate(lines):
+                if id_marker in line:
+                    id_lineno = i
+                    break
+            if id_lineno is not None:
+                # Scan backward to find the entry start (## ...)
+                start = id_lineno
+                while start > 0 and not lines[start].startswith("## "):
+                    start -= 1
+                # Scan forward from id_lineno to find the closing ---
+                end = id_lineno
+                while end < len(lines) and lines[end].strip() != "---":
+                    end += 1
+                # Include the --- line and the blank line after it
+                if end < len(lines):
+                    end += 1  # include the ---
+                if end < len(lines) and lines[end].strip() == "":
+                    end += 1  # include trailing blank
+                # Remove the entry block
+                new_lines = lines[:start] + lines[end:]
+                new_content = "\n".join(new_lines).strip()
+                if new_content:
+                    new_content += "\n"
+                if new_content != content:
+                    notes_path.write_text(new_content)
+        except Exception:
+            pass
+
+    return {"ok": True, "id": page_id, "message": "Page deleted"}
 
 
 @app.post("/api/v1/auth/rotate")

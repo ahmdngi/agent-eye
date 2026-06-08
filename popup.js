@@ -1,12 +1,18 @@
 // Agent Eye — Popup
 
 const $ = (sel) => document.querySelector(sel);
+const $$ = (sel) => document.querySelectorAll(sel);
 const statusDot = $('#statusDot');
 const statusText = $('#statusText');
 const content = $('#content');
 const shareBtn = $('#shareBtn');
 const copyBtn = $('#copyBtn');
+const historyBtn = $('#historyBtn');
 const toast = $('#toast');
+const currentView = $('#currentView');
+const historyView = $('#historyView');
+const historyContent = $('#historyContent');
+const backBtn = $('#backBtn');
 
 function setStatus(text, state = 'ok') {
   statusText.textContent = text;
@@ -72,7 +78,7 @@ async function getServerConfig() {
   }
 })();
 
-// ── render ──────────────────────────────────────
+// ── render current page ─────────────────────────
 function render(data) {
   const html = `
     <div class="section">
@@ -244,3 +250,108 @@ copyBtn.addEventListener('click', async () => {
     showToast('Failed to copy', true);
   }
 });
+
+// ── History: list + delete ──────────────────────
+function showView(view) {
+  if (view === 'history') {
+    currentView.style.display = 'none';
+    historyView.style.display = 'block';
+  } else {
+    currentView.style.display = 'block';
+    historyView.style.display = 'none';
+  }
+}
+
+historyBtn.addEventListener('click', async () => {
+  const config = await getServerConfig();
+  if (!config.serverUrl || !config.apiKey) {
+    showToast('⚙ Configure server first', true);
+    return;
+  }
+  showView('history');
+  await loadHistory();
+});
+
+backBtn.addEventListener('click', () => {
+  showView('current');
+});
+
+async function loadHistory() {
+  const config = await getServerConfig();
+  const baseUrl = config.serverUrl.replace(/\/+$/, '');
+
+  historyContent.innerHTML = `<div class="error-msg"><p>Loading history...</p></div>`;
+
+  try {
+    const res = await fetch(`${baseUrl}/api/v1/pages?limit=100`, {
+      headers: { 'X-Api-Key': config.apiKey },
+    });
+    if (!res.ok) throw new Error(`HTTP ${res.status}`);
+    const pages = await res.json();
+
+    if (!pages.length) {
+      historyContent.innerHTML = `<div class="error-msg"><p>📭 No captured pages yet</p></div>`;
+      return;
+    }
+
+    let html = `<div class="history-count">${pages.length} page(s) captured</div>`;
+    for (const p of pages) {
+      const pageData = p.page || {};
+      const title = pageData.title || 'Untitled';
+      const url = pageData.url || '?';
+      const ts = (p.timestamp || '').slice(0, 10);
+      const id = p.id || '?';
+      const words = pageData.words || 0;
+
+      html += `
+        <div class="history-item" data-id="${esc(id)}">
+          <div class="info">
+            <div class="title" title="${esc(title)}">${esc(title)}</div>
+            <div class="url" title="${esc(url)}">${esc(url)}</div>
+            <div class="ts">${esc(ts)} <span class="tag">${words} words</span></div>
+          </div>
+          <button class="btn-icon delete-btn" data-id="${esc(id)}" title="Delete">🗑️</button>
+        </div>
+      `;
+    }
+    historyContent.innerHTML = html;
+
+    // Attach delete handlers
+    $$('.delete-btn').forEach(btn => {
+      btn.addEventListener('click', async (e) => {
+        e.stopPropagation();
+        const pageId = btn.dataset.id;
+        await deletePage(pageId, baseUrl, config.apiKey, btn);
+      });
+    });
+  } catch (err) {
+    historyContent.innerHTML = `<div class="error-msg"><p>❌ Failed to load history: ${esc(err.message)}</p></div>`;
+  }
+}
+
+async function deletePage(pageId, baseUrl, apiKey, btn) {
+  btn.classList.add('loading');
+  btn.textContent = '⏳';
+
+  try {
+    const res = await fetch(`${baseUrl}/api/v1/pages/${encodeURIComponent(pageId)}`, {
+      method: 'DELETE',
+      headers: { 'X-Api-Key': apiKey },
+    });
+
+    if (!res.ok) {
+      const errBody = await res.text().catch(() => '');
+      throw new Error(`HTTP ${res.status}${errBody ? ': ' + errBody : ''}`);
+    }
+
+    // Remove the item from the DOM
+    const item = btn.closest('.history-item');
+    if (item) item.remove();
+
+    showToast(`🗑️ Deleted ${pageId}`);
+  } catch (err) {
+    showToast(`❌ Delete failed: ${err.message}`, true);
+    btn.classList.remove('loading');
+    btn.textContent = '🗑️';
+  }
+}

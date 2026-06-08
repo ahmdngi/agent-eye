@@ -1,0 +1,17 @@
+{
+  "id": "0110803eb42962a1",
+  "session_id": "hermes-auto-1780931391921",
+  "agent_id": "hermes",
+  "summary": "[AUTO-CAPTURE] 1 tool calls:\n- [mnemo_search] cross-agent (hermes): agent-eye \u2192 2 results",
+  "key_facts": [
+    "auto_capture_flush"
+  ],
+  "projects_referenced": [],
+  "decisions_made": [],
+  "timestamp": "2026-06-08T15:09:51.932852+00:00",
+  "created_at": 1780931391.9331186,
+  "source": "tool",
+  "category": "session_log",
+  "additional_tags": [],
+  "schema_version": 3
+}

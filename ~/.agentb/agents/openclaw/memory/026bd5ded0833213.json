@@ -1,0 +1,17 @@
+{
+  "id": "026bd5ded0833213",
+  "session_id": "openclaw-auto-1780908033371",
+  "agent_id": "openclaw",
+  "summary": "[AUTO-CAPTURE] 2 tool calls:\n- [mnemo_recall] 3 memories about: DEF CON defcon conference talk proposal CFP\n- [wiki_search] wiki search: \"DEF CON defcon conference\" in all",
+  "key_facts": [
+    "auto_capture_flush"
+  ],
+  "projects_referenced": [],
+  "decisions_made": [],
+  "timestamp": "2026-06-08T08:40:33.382759+00:00",
+  "created_at": 1780908033.3831031,
+  "source": "tool",
+  "category": "session_log",
+  "additional_tags": [],
+  "schema_version": 3
+}

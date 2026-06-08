@@ -1,0 +1,20 @@
+{
+  "id": "b8875c093f440626",
+  "session_id": "cron-prayer-times-july2026",
+  "agent_id": "hermes",
+  "summary": "Prayer times cron job for July 2026 ran on June 6. Generated EIK-adjusted .ics file (186 events) successfully, but Google OAuth token was expired/revoked so calendar events were not created and .ics was not emailed. Token expiry was May 25, 2026. The OAuth refresh token for runnerhermes84@gmail.com no longer works (invalid_grant) \u2014 Google testing-mode OAuth tokens expire after ~7 days of inactivity.",
+  "key_facts": [],
+  "projects_referenced": [],
+  "decisions_made": [],
+  "timestamp": "2026-06-06T20:20:22.333468+00:00",
+  "created_at": 1780777222.3342292,
+  "source": "tool",
+  "category": "incident",
+  "additional_tags": [
+    "prayer-times",
+    "google-oauth",
+    "cron-job",
+    "blocker"
+  ],
+  "schema_version": 3
+}

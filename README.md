@@ -71,7 +71,14 @@ First run creates an API key in `~/.hermes/agent-eye/.api_key`.
 
 ### 5. Share a page
 
-Click the extension on any page → hit **Share**.
+Click the extension on any page → hit **Share**. Or explore your full history by clicking **History** in the popup — view all captured pages with stats and delete unwanted ones with the 🗑️ button.
+
+## v1.1.0 Updates
+
+- **📋 History view** — popup now lists all captured pages with title, URL, date, and word stats
+- **🗑️ Delete from popup** — each history entry has a delete button; removes the page from the server, the notes file (`agent-eye-captures.md`), and the seen-ids tracker
+- **Docker vault mount** — the container needs `-v ~/hermes-vault:/root/hermes-vault` so delete can reach the notes file
+- Bugfix: `_list_pages()` handles broken symlinks gracefully; health endpoint excludes `seen_ids.json` from page count
 
 ## Server Configuration
 
@@ -88,13 +95,14 @@ The server **always binds to the Tailscale IP** (`100.72.133.89`) by default —
 # Build the image
 docker build -t agent-eye .
 
-# Run it (bound to Tailscale IP)
+# Run it (bound to Tailscale IP, with vault mount for notes cleanup)
 docker run -d \
   --name agent-eye \
   --restart unless-stopped \
   -e AGENT_EYE_HOST=0.0.0.0 \
   -p 100.72.133.89:8788:8788 \
   -v ~/.hermes/agent-eye:/root/.hermes/agent-eye \
+  -v ~/hermes-vault:/root/hermes-vault \
   agent-eye
 ```
 
@@ -115,6 +123,7 @@ All endpoints except `/health` require `X-Api-Key` header.
 | `POST` | `/api/v1/pages` | Share a page |
 | `GET` | `/api/v1/pages/latest` | Get most recent share |
 | `GET` | `/api/v1/pages?limit=20&offset=0` | List shares (paginated) |
+| `DELETE` | `/api/v1/pages/:id` | Delete a page (removes from server, notes, and seen-ids) |
 | `POST` | `/api/v1/auth/rotate` | Generate new API key |
 
 ### Share payload

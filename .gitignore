@@ -23,3 +23,4 @@ Thumbs.db
 
 # Server runtime (user-specific — not shared)
 .hermes/
+.agentb/

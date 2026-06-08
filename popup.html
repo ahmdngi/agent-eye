@@ -191,13 +191,94 @@
       grid-template-columns: 1fr 1fr;
       gap: 6px;
     }
+
+    /* History view */
+    .history-item {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 10px 12px;
+      margin-bottom: 6px;
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+    }
+    .history-item .info {
+      flex: 1;
+      min-width: 0;
+    }
+    .history-item .info .title {
+      font-size: 13px;
+      font-weight: 600;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      margin-bottom: 2px;
+    }
+    .history-item .info .url {
+      font-size: 11px;
+      color: var(--accent-hover);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      margin-bottom: 2px;
+    }
+    .history-item .info .ts {
+      font-size: 10px;
+      color: var(--text-muted);
+    }
+    .history-item .info .ts .tag {
+      display: inline-block;
+      font-size: 9px;
+      padding: 1px 6px;
+      border-radius: 99px;
+      background: var(--border);
+      color: var(--text-muted);
+      margin-left: 4px;
+    }
+    .btn-icon {
+      width: 32px;
+      height: 32px;
+      border: none;
+      border-radius: 6px;
+      background: transparent;
+      color: var(--text-muted);
+      cursor: pointer;
+      font-size: 15px;
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.15s;
+    }
+    .btn-icon:hover { background: #7f1d1d; color: #fecaca; }
+    .btn-icon.loading { pointer-events: none; opacity: 0.5; }
+    .btn-back {
+      background: var(--border);
+      border: none;
+      border-radius: 8px;
+      padding: 6px 12px;
+      color: var(--text);
+      cursor: pointer;
+      font-size: 12px;
+      font-weight: 600;
+      transition: all 0.15s;
+    }
+    .btn-back:hover { background: #475569; }
+    .history-count {
+      font-size: 11px;
+      color: var(--text-muted);
+      margin-bottom: 8px;
+    }
+    #historyView { display: none; }
+    #currentView { display: block; }
   </style>
 </head>
 <body>
   <div class="header">
     <img src="icons/icon48.png" alt="logo">
     <h1>Agent Eye</h1>
-    <span class="badge">v1.0</span>
+    <span class="badge">v1.1</span>
   </div>
 
   <div class="status-bar" id="statusBar">
@@ -205,14 +286,30 @@
     <span id="statusText">Analyzing page...</span>
   </div>
 
-  <div class="content" id="content">
-    <div class="error-msg" id="loadingMsg">
-      <p>Loading page data...</p>
+  <div id="currentView">
+    <div class="content" id="content">
+      <div class="error-msg" id="loadingMsg">
+        <p>Loading page data...</p>
+      </div>
+    </div>
+  </div>
+
+  <div id="historyView">
+    <div class="header" style="border-bottom: 1px solid var(--border); justify-content: space-between;">
+      <button class="btn-back" id="backBtn">← Back</button>
+      <span style="font-size:13px;font-weight:600;">Captured Pages</span>
+      <span></span>
+    </div>
+    <div class="content" id="historyContent">
+      <div class="error-msg" id="historyLoading">
+        <p>Loading history...</p>
+      </div>
     </div>
   </div>
 
   <div class="actions" id="actions">
     <button class="btn btn-primary" id="shareBtn">📤 Share</button>
+    <button class="btn btn-secondary" id="historyBtn">📋 History</button>
     <button class="btn btn-secondary" id="copyBtn">📋 Copy URL</button>
   </div>
 
